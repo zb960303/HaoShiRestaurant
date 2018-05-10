@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import org.hibernate.criterion.Example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import entity.Food;
@@ -35,6 +37,7 @@ public class FoodDAO {
 	public static final String FDES = "fdes";
 	public static final String STOCK = "stock";
 	public static final String IMG = "img";
+	public static final String CATEID = "fcid";
 
 	private SessionFactory sessionFactory;
 
@@ -111,6 +114,21 @@ public class FoodDAO {
 			throw re;
 		}
 	}
+	
+	public List findByPropert(String propertyName, Object value) {
+		log.debug("finding Food instance with property: " + propertyName
+				+ ", value: " + value);
+		try {
+			String queryString = "from Food as model left join fetch model.foodcate fc where fc."
+					+ propertyName + "= ?";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 
 	public List findByFname(Object fname) {
 		return findByProperty(FNAME, fname);
@@ -118,6 +136,9 @@ public class FoodDAO {
 
 	public List findByFprice(Object fprice) {
 		return findByProperty(FPRICE, fprice);
+	}
+	public List findFoodByCateId(Object cateId){
+		return findByPropert(CATEID,cateId);
 	}
 
 	public List findByFdes(Object fdes) {
@@ -182,4 +203,16 @@ public class FoodDAO {
 	public static FoodDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (FoodDAO) ctx.getBean("FoodDAO");
 	}
+	/*public List findFoodByCateId(Integer CateId) {
+		List list=null;
+		String hql="select f.fid from Food f left join f.foodcate fc where fc.fcid="+CateId;
+		//Session session=getCurrentSession();;
+		//Query query =session.createQuery(hql);
+		//query.setInteger("fcid", CateId);
+		Query queryObject = getCurrentSession().createQuery(hql);
+		return queryObject.list();
+		
+	}*/
+
+
 }

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-
+	<package name="default"  extends="struts-default">
+		<action name="startOrder" class="FoodcateAction" method="showAllFoodCate">
+			<result name="showAllFoodCate">StartOrder.jsp</result>
+		</action>
+		<action name="showFood" class="FoodAction" method="findFoodByCateId">
+			<result name="showFood">ShowFood.jsp</result>
+		</action>
+	</package>
 </struts>    

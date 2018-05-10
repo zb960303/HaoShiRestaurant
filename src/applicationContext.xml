@@ -23,12 +23,34 @@
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-	</bean>
+	<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>entity/Cart.hbm.xml</value>
+				<value>entity/Food.hbm.xml</value>
+				<value>entity/Foodcate.hbm.xml</value>
+				<value>entity/Order.hbm.xml</value>
+				<value>entity/Restaurant.hbm.xml</value>
+				<value>entity/Table.hbm.xml</value>
+				<value>entity/User.hbm.xml</value>
+				<value>entity/Userrole.hbm.xml</value>
+			</list>
+		</property>
+		</bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" /><bean
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean
 		id="UserDAO" class="dao.UserDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -44,11 +66,23 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
 	<bean id="FoodcateDAO" class="dao.FoodcateDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="FoodcateBiz" class="biz.FoodCateBizImpl">
+		<property name="foodcateDao" >
+			<ref bean="FoodcateDAO"></ref>
+		</property>
+	</bean>
+	<bean id="FoodcateAction" class="action.FoodCateAction">
+		<property name="foodcateBiz" >
+			<ref bean="FoodcateBiz"></ref>
+		</property>
+	</bean>
+	
 	<bean id="OrderDAO" class="dao.OrderDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -68,4 +102,15 @@
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-	</bean></beans>
+	</bean>
+	<bean id="FoodBiz" class="biz.FoodBizImpl">
+		<property name="foodDao" >
+			<ref bean="FoodDAO"></ref>
+		</property>
+	</bean>
+	<bean id="FoodAction" class="action.FoodAction">
+		<property name="foodBiz" >
+			<ref bean="FoodBiz"></ref>
+		</property>
+	</bean>
+	</beans>
