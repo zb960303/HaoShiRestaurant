@@ -22,4 +22,29 @@ public class FoodBizImpl implements FoodBiz {
 		return foodDao.findFoodByCateId(cateId);
 	}
 
+
+
+	@Override
+	public Food findFoodById(int id) {
+		// TODO 自动生成的方法存根
+		return foodDao.findById(id);
+	}
+
+
+
+	@Override
+	public List findAllFood() {
+		// TODO 自动生成的方法存根
+		return foodDao.findAll();
+	}
+
+
+
+	@Override
+	public Float findPriceById(int id) {
+		// TODO 自动生成的方法存根
+		Food food=findFoodById(id);
+		return food.getFprice();
+	}
+
 }

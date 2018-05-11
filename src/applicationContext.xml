@@ -88,16 +88,49 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
 	<bean id="TableDAO" class="dao.TableDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="TableBiz" class="biz.TableBizImpl">
+		<property name="tableDao" >
+			<ref bean="TableDAO"></ref>
+		</property>
+	</bean>
+	<bean id="TableAction" class="action.CartAction">
+		<property name="tableBiz" >
+			<ref bean="TableBiz"></ref>
+		</property>
+	</bean>
+	
 	<bean id="CartDAO" class="dao.CartDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="CartBiz" class="biz.CartBizImpl">
+		<property name="cartDao" >
+			<ref bean="CartDAO"></ref>
+		</property>
+	</bean>
+	<bean id="CartAction" class="action.CartAction">
+		<property name="cartBiz" >
+			<ref bean="CartBiz"></ref>
+		</property>
+		<property name="foodbiz" >
+			<ref bean="FoodBiz"></ref>
+		</property>
+		<property name="tableBiz" >
+			<ref bean="TableBiz"></ref>
+		</property>
+		<property name="foodcateBiz" >
+			<ref bean="FoodcateBiz"></ref>
+		</property>
+	</bean>
+	
+	
 	<bean id="FoodDAO" class="dao.FoodDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />

@@ -35,20 +35,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	</div>
 	    	<div class="list-right" id="content">
 	    		
-	            <div class="list-cart">
-			                <div class="d-stock ">
-					                <a class="decrease">-</a>
-					                <input id="num" readonly="" class="text_box" name="" type="text" value="0">
-					                <a class="increase">+</a>
-			                </div>
-		                </div>  
+	            <p>fdgfdvg</p>
 	    	</div>
 	    </div>
 	    <!--底部-->
  <div style="height: 100px;"></div>
  <div class="fix-bot">
-	   	  <a href="" class="list-js">合计：<i>0元</i><em>(0份)</em></a>
-	   	  <a href="" class="list-jsk">选好了</a>
+	   	  
+	   	  <a href="ShowCart.action" class="list-jsk">选好了</a>
  </div>
  
  <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">

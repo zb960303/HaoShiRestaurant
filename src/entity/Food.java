@@ -14,7 +14,7 @@ public class Food implements java.io.Serializable {
 	private Integer fid;
 	private Foodcate foodcate;
 	private String fname;
-	private String fprice;
+	private Float fprice;
 	private String fdes;
 	private Integer stock;
 	private String img;
@@ -28,7 +28,7 @@ public class Food implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Food(Foodcate foodcate, String fname, String fprice, Integer stock,
+	public Food(Foodcate foodcate, String fname, Float fprice, Integer stock,
 			String img) {
 		this.foodcate = foodcate;
 		this.fname = fname;
@@ -38,7 +38,7 @@ public class Food implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Food(Foodcate foodcate, String fname, String fprice, String fdes,
+	public Food(Foodcate foodcate, String fname, Float fprice, String fdes,
 			Integer stock, String img, Set orders, Set carts) {
 		this.foodcate = foodcate;
 		this.fname = fname;
@@ -76,11 +76,11 @@ public class Food implements java.io.Serializable {
 		this.fname = fname;
 	}
 
-	public String getFprice() {
+	public Float getFprice() {
 		return this.fprice;
 	}
 
-	public void setFprice(String fprice) {
+	public void setFprice(Float fprice) {
 		this.fprice = fprice;
 	}
 

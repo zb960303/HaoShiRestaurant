@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags" prefix="s" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -37,89 +38,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   </header>
 	   <div style="height: 49px;"></div>
 	    <ul class="eat-list">
-	    	<li>
-	    		<span class="name">绿茶</span>
-	    		<em class="price">￥2.0</em>
-	    		<div class="d-stock ">
-	                <a class="decrease">-</a>
-	                <input id="num" readonly="" class="text_box" name="" type="text" value="1">
-	                <a class="increase">+</a>
-			    </div>
-	    	</li>
-	    	<li>
-	    		<span class="name">绿茶</span>
-	    		<em class="price">￥2.0</em>
-	    		<div class="d-stock ">
-	                <a class="decrease">-</a>
-	                <input id="num" readonly="" class="text_box" name="" type="text" value="1">
-	                <a class="increase">+</a>
-			    </div>
-	    	</li>
+	    <s:iterator id="CartList" value="CartList">
+		    	<li>
+		    		<span class="name"><s:property value="#CartList.food.fname"/></span>
+		    		<em class="price">￥<s:property value="#CartList.fprice"/></em>
+		    		
+		    		<div class="d-stock ">
+		                <a class="decrease">-</a>
+		                <input id="num" readonly="" class="text_box" name="" type="text" value="<s:property value="#CartList.fnum"/>">
+		                <a class="increase">+</a>
+				    </div>
+		    	</li>
+	    	</s:iterator>
+	    	
 	    </ul>
 	    <div class="juli"></div>
 	    <ul class="list-detail">
 	    	<li class="time">
-	    		<span>送餐人数：</span>
-	    		<button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0}">请选择就餐人数</button>
-	    		<i class="am-icon-angle-right"></i>
-	    	</li>
-	    	<li class="time">
 	    		<span>我的桌号：</span>
-	    		<button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#doc-modal-2', closeViaDimmer: 0}">请选择桌台</button>
-	    		<i class="am-icon-angle-right"></i>
+	    		<s:property value="#CartList.table.tid"/>号桌
+	    		
 	    	</li>
 	    </ul>
 	    <div class="juli"></div>
 	    <!--就餐人数-->
-	    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
-		  <div class="am-modal-dialog">
-		  	<div class="am-modal-hd" style="height: 35px;">
-		      <a href="javascript: void(0)" class="am-close am-close-spin" style="float: left;" data-am-modal-close>&times;</a>
-		    </div>
-		    <div class="am-modal-bd">
-		       <ul class="numren">
-		       	<li>1人</li>
-		       	<li>2人</li>
-		       	<li class="cur">3人</li>
-		       	<li>4人</li>
-		       	<li>5人</li>
-		       	<li>6人</li>
-		       	<li>7人</li>
-		       	<li>8人</li>
-		       	<li>9人</li>
-		       	<li>10人</li>
-		       </ul>
-		    </div>
-		  </div>
-		</div>
+	    
 		<!--桌台-->
-	    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-2">
-		  <div class="am-modal-dialog">
-		  	<div class="am-modal-hd" style="height: 35px;">
-		      <a href="javascript: void(0)" class="am-close am-close-spin" style="float: left;" data-am-modal-close>&times;</a>
-		    </div>
-		    <div class="am-modal-bd">
-		       <ul class="num-left">
-		       	 <li>桌台</li>
-		       </ul>
-		       <ul class="num-right">
-		       	 <li>A区2号台位</li>
-		       	 <li>A区2号台位</li>
-		       	 <li>A区2号台位</li>
-		       	 <li>A区2号台位</li>
-		       	 <li>A区2号台位</li>
-		       	 <li>A区2号台位</li>
-		       </ul>
-		    </div>
-		  </div>
-		</div>
+	    
 		
         <div class="juli"></div>
-	    <textarea placeholder="备注说明" class="bz-infor"></textarea>
+	    
 	    <div class="juli"></div>
 	    <div class="pricebox">
-	    	<p>总价：<i>12.00</i>元（含运费10元）（<em>1</em>份）</p>
-	    	<p>请选择支付方式并确认下单：</p>
+	    <s:set name="sum" value="SumPrice"/>
+	    	<p>总价：<i><s:property value="#sum"/></i>元<p>
+	    	<p>请确认下单：</p>
 	    	<button class="paybtn" type="button" > 微信支付</button>
 	    </div>
 	    

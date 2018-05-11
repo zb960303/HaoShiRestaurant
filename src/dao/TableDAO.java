@@ -32,6 +32,7 @@ public class TableDAO {
 	// property constants
 	public static final String TNAME = "tname";
 	public static final String TDES = "tdes";
+	public static final String TID = "tid";
 
 	private SessionFactory sessionFactory;
 
@@ -69,11 +70,11 @@ public class TableDAO {
 		}
 	}
 
-	public Table findById(java.lang.Integer id) {
-		log.debug("getting Table instance with id: " + id);
+	public Table findById(java.lang.Integer TID) {
+		log.debug("getting Table instance with id: " + TID);
 		try {
 			Table instance = (Table) getCurrentSession()
-					.get("entity.Table", id);
+					.get("entity.Table", TID);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);
@@ -117,6 +118,7 @@ public class TableDAO {
 	public List findByTdes(Object tdes) {
 		return findByProperty(TDES, tdes);
 	}
+	
 
 	public List findAll() {
 		log.debug("finding all Table instances");

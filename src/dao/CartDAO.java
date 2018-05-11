@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.LockOptions;
@@ -31,6 +32,8 @@ public class CartDAO {
 	// property constants
 	public static final String FNUM = "fnum";
 	public static final String FPRICE = "fprice";
+	public static final String FID = "fid";
+	public static final String TID = "tid";
 
 	private SessionFactory sessionFactory;
 
@@ -46,14 +49,16 @@ public class CartDAO {
 		// do nothing
 	}
 
-	public void save(Cart transientInstance) {
+	public int save(Cart transientInstance) {
 		log.debug("saving Cart instance");
 		try {
 			getCurrentSession().save(transientInstance);
-			log.debug("save successful");
+			return 1;
+			//log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
+			
 		}
 	}
 
@@ -115,7 +120,36 @@ public class CartDAO {
 	public List findByFprice(Object fprice) {
 		return findByProperty(FPRICE, fprice);
 	}
-
+	
+	public List findByFID(Object fid,Object tid) {
+		String queryString = "from Cart as model where model.food.fid"
+				 + "= ? and model.table.tid "+" = ?";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setParameter(0, fid);
+		queryObject.setParameter(1, tid);
+		return queryObject.list();
+	}
+	
+	public List findByTID(Object tid) {
+		List<Object[]> objects = null;
+		List<Cart> list = new ArrayList<Cart>();
+		String queryString = " from Cart c ,Food f,Table t where c.food.fid =f.fid and c.table.tid=t.tid and c.table.tid "+" = ?";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setParameter(0, tid);
+		objects = queryObject.list();
+        for (int i = 0; i < objects.size(); i++) {
+            Object[] obs = objects.get(i);
+            Cart cart = (Cart) obs[0];
+            list.add(cart);
+        }
+		return list;
+	}
+	public Double SumPrice(int TID){
+		String hql="select sum(c.fprice) from Cart c where c.table.tid ="+ TID ;
+		Double sum=(Double) getCurrentSession().createQuery(hql).uniqueResult();
+		return sum;
+	}
+	
 	public List findAll() {
 		log.debug("finding all Cart instances");
 		try {
@@ -128,12 +162,12 @@ public class CartDAO {
 		}
 	}
 
-	public Cart merge(Cart detachedInstance) {
+	public int merge(Cart detachedInstance) {
 		log.debug("merging Cart instance");
 		try {
 			Cart result = (Cart) getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
-			return result;
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
 			throw re;
@@ -165,5 +199,12 @@ public class CartDAO {
 
 	public static CartDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (CartDAO) ctx.getBean("CartDAO");
+	}
+	
+	public Cart findCartByFId_TID(int FID,int TID){
+		String hql="from Cart c where c.food.fid = "+ FID + " and c.table.tid ="+ TID ;
+		System.out.println(hql);
+		Cart cart=(Cart) getCurrentSession().createQuery(hql).uniqueResult();
+		return cart;
 	}
 }

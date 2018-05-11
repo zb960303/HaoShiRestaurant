@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <div class="am-gallery-desc">￥52</div>
 		        </div>
 		        <div class="list-cart">
-		               <button type="button" class="btn btn-primary">加入购物车</button>  
+		               <button type="button" class="btn btn-primary" onclick="window.location.href='AddtoCart.action?FID=<s:property value="#Food.fid"/>'">加入购物车</button>  
 		        </div>
 			    	</li>
 	</s:iterator>

@@ -23,6 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <%
+  	int tid=Integer.parseInt(request.getParameter("TID"));
+   %>
+   <%=tid %>号桌
     <form action="startOrder" method="post">
     	<input type="submit" value="开始点餐">
     </form>

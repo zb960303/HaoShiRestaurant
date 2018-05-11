@@ -8,5 +8,14 @@
 		<action name="showFood" class="FoodAction" method="findFoodByCateId">
 			<result name="showFood">ShowFood.jsp</result>
 		</action>
+		<action name="showTID" class="CartAction" method="showTID">
+			<result name="ShowTID">WelCome.jsp</result>
+		</action>
+		<action name="AddtoCart" class="CartAction" method="AddtoCart">
+			<result name="AddSuccess">StartOrder.jsp</result>
+		</action>
+		<action name="ShowCart" class="CartAction" method="findAllCartByTID">
+			<result name="ShowCart">Cart.jsp</result>
+		</action>
 	</package>
 </struts>    

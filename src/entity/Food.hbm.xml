@@ -16,8 +16,8 @@
         <property name="fname" type="java.lang.String">
             <column name="FName" length="45" not-null="true" />
         </property>
-        <property name="fprice" type="java.lang.String">
-            <column name="FPrice" length="45" not-null="true" />
+        <property name="fprice" type="java.lang.Float">
+            <column name="FPrice" precision="12" scale="0" not-null="true" />
         </property>
         <property name="fdes" type="java.lang.String">
             <column name="FDes" length="90" />
