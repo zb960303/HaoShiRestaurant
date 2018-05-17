@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.LockOptions;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import entity.Cart;
 import entity.Order;
 
 /**
@@ -57,6 +59,28 @@ public class OrderDAO {
 			throw re;
 		}
 	}
+	
+	public List findByTID(Object tid) {
+		List<Object[]> objects = null;
+		List<Order> list = new ArrayList<Order>();
+		String queryString = " from Order o ,Food f,Table t where o.food.fid =f.fid and o.table.tid=t.tid and o.isBill=0 and o.table.tid "+" = ?";
+		Query queryObject = getCurrentSession().createQuery(queryString);
+		queryObject.setParameter(0, tid);
+		objects = queryObject.list();
+        for (int i = 0; i < objects.size(); i++) {
+            Object[] obs = objects.get(i);
+            Order order = (Order) obs[0];
+            list.add(order);
+        }
+		return list;
+	}
+	
+	public Double SumPrice(int TID){
+		String hql="select sum(c.oprice) from Order c where c.isBill=0 and c.table.tid ="+ TID ;
+		Double sum=(Double) getCurrentSession().createQuery(hql).uniqueResult();
+		return sum;
+	}
+	
 
 	public void delete(Order persistentInstance) {
 		log.debug("deleting Order instance");
@@ -99,11 +123,19 @@ public class OrderDAO {
 		log.debug("finding Order instance with property: " + propertyName
 				+ ", value: " + value);
 		try {
-			String queryString = "from Order as model where model."
+			List<Object[]> objects = null;
+			List<Order> list = new ArrayList<Order>();
+			String queryString = "from Order o ,Food f,Table t where o.food.fid =f.fid and o.table.tid=t.tid and o."
 					+ propertyName + "= ?";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			queryObject.setParameter(0, value);
-			return queryObject.list();
+			objects = queryObject.list();
+	        for (int i = 0; i < objects.size(); i++) {
+	            Object[] obs = objects.get(i);
+	            Order order = (Order) obs[0];
+	            list.add(order);
+	        };
+	        return list;
 		} catch (RuntimeException re) {
 			log.error("find by property name failed", re);
 			throw re;
@@ -121,13 +153,24 @@ public class OrderDAO {
 	public List findByIsBill(Object isBill) {
 		return findByProperty(IS_BILL, isBill);
 	}
+	
+	
 
 	public List findAll() {
 		log.debug("finding all Order instances");
 		try {
-			String queryString = "from Order";
+			List<Object[]> objects = null;
+			List<Order> list = new ArrayList<Order>();
+			String queryString = "from Order o ,Food f,Table t where o.food.fid =f.fid and o.table.tid=t.tid";
 			Query queryObject = getCurrentSession().createQuery(queryString);
-			return queryObject.list();
+			objects = queryObject.list();
+	        for (int i = 0; i < objects.size(); i++) {
+	            Object[] obs = objects.get(i);
+	            Order order = (Order) obs[0];
+	            list.add(order);
+	        }
+			return list;
+			
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);
 			throw re;

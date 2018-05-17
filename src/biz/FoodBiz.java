@@ -9,5 +9,7 @@ public interface FoodBiz {
 	public Food findFoodById(int id);
 	public List findAllFood();
 	public Float findPriceById(int id);
-	
+	public int DeleteFood(int id);
+	public int AddFood(Food food);
+	public int FoodUpdate(Food food);
 }

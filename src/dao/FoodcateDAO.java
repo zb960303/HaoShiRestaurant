@@ -48,22 +48,24 @@ public class FoodcateDAO {
 		// do nothing
 	}
 
-	public void save(Foodcate transientInstance) {
+	public int save(Foodcate transientInstance) {
 		log.debug("saving Foodcate instance");
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
 
-	public void delete(Foodcate persistentInstance) {
+	public int delete(Foodcate persistentInstance) {
 		log.debug("deleting Foodcate instance");
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;

@@ -53,22 +53,24 @@ public class FoodDAO {
 		// do nothing
 	}
 
-	public void save(Food transientInstance) {
+	public int save(Food transientInstance) {
 		log.debug("saving Food instance");
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
 
-	public void delete(Food persistentInstance) {
+	public int delete(Food persistentInstance) {
 		log.debug("deleting Food instance");
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -156,7 +158,7 @@ public class FoodDAO {
 	public List findAll() {
 		log.debug("finding all Food instances");
 		try {
-			String queryString = "from Food";
+			String queryString = "from Food as model left join fetch model.foodcate fc";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return queryObject.list();
 		} catch (RuntimeException re) {
@@ -165,12 +167,12 @@ public class FoodDAO {
 		}
 	}
 
-	public Food merge(Food detachedInstance) {
+	public int merge(Food detachedInstance) {
 		log.debug("merging Food instance");
 		try {
 			Food result = (Food) getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
-			return result;
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
 			throw re;

@@ -11,4 +11,5 @@ public interface CartBiz {
 	public int  updateCart(Cart cart);
 	public List findCartByTID(int id);
 	public Double SumPrice(int id);
+	public void DeleteCart(int id);
 }

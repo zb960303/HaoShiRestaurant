@@ -47,4 +47,34 @@ public class FoodBizImpl implements FoodBiz {
 		return food.getFprice();
 	}
 
+
+
+	@Override
+	public int DeleteFood(int id) {
+		// TODO 自动生成的方法存根
+		Food food=findFoodById(id);
+		return foodDao.delete(food);
+	}
+
+
+
+	@Override
+	public int AddFood(Food food) {
+		// TODO 自动生成的方法存根
+		
+		return foodDao.save(food);
+	}
+
+
+
+	@Override
+	public int FoodUpdate(Food food) {
+		// TODO 自动生成的方法存根
+		return foodDao.merge(food);
+	}
+
+
+
+	
+
 }

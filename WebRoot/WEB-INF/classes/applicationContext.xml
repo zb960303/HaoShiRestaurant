@@ -50,20 +50,53 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<bean
-		id="UserDAO" class="dao.UserDAO">
+	
+	
+	<bean id="UserDAO" class="dao.UserDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-</bean>
+	</bean>
+	<bean id="UserBiz" class="biz.UserBizImpl">
+		<property name="userDao" >
+			<ref bean="UserDAO"></ref>
+		</property>
+	</bean>
+	<bean id="UserAction" class="action.UserAction">
+		<property name="userBiz" >
+			<ref bean="UserBiz"></ref>
+		</property>
+		<property name="userroleBiz" >
+			<ref bean="UserRoleBiz"></ref>
+		</property>
+		<property name="restaurantBiz" >
+			<ref bean="RestaurantBiz"></ref>
+		</property>
+		<property name="orderBiz" >
+			<ref bean="OrderBiz"></ref>
+		</property>
+	</bean>
+	
 	<bean id="UserroleDAO" class="dao.UserroleDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="UserRoleBiz" class="biz.UserRoleBizImpl">
+		<property name="userroleDao" >
+			<ref bean="UserroleDAO"></ref>
+		</property>
+	</bean>
+	
+	
 	<bean id="RestaurantDAO" class="dao.RestaurantDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="RestaurantBiz" class="biz.RestaurantBizImpl">
+		<property name="restaurantDao" >
+			<ref bean="RestaurantDAO"></ref>
 		</property>
 	</bean>
 	
@@ -81,13 +114,26 @@
 		<property name="foodcateBiz" >
 			<ref bean="FoodcateBiz"></ref>
 		</property>
+		<property name="foodBiz" >
+			<ref bean="FoodBiz"></ref>
+		</property>
 	</bean>
 	
 	<bean id="OrderDAO" class="dao.OrderDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
+	</bean><bean id="OrderBiz" class="biz.OrderBizImpl">
+		<property name="orderDao" >
+			<ref bean="OrderDAO"></ref>
+		</property>
 	</bean>
+	<bean id="OrderAction" class="action.OrderAction">
+		<property name="orderBiz" >
+			<ref bean="OrderBiz"></ref>
+		</property>
+	</bean>
+	
 	
 	<bean id="TableDAO" class="dao.TableDAO">
 		<property name="sessionFactory">
@@ -128,6 +174,9 @@
 		<property name="foodcateBiz" >
 			<ref bean="FoodcateBiz"></ref>
 		</property>
+		<property name="orderBiz" >
+			<ref bean="OrderBiz"></ref>
+		</property>
 	</bean>
 	
 	
@@ -144,6 +193,9 @@
 	<bean id="FoodAction" class="action.FoodAction">
 		<property name="foodBiz" >
 			<ref bean="FoodBiz"></ref>
+		</property>
+		<property name="foodcateBiz" >
+			<ref bean="FoodcateBiz"></ref>
 		</property>
 	</bean>
 	</beans>

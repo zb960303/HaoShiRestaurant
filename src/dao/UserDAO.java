@@ -46,22 +46,24 @@ public class UserDAO {
 		// do nothing
 	}
 
-	public void save(User transientInstance) {
+	public int save(User transientInstance) {
 		log.debug("saving User instance");
 		try {
 			getCurrentSession().save(transientInstance);
-			log.debug("save successful");
+			return 1;
+			//log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
 		}
 	}
 
-	public void delete(User persistentInstance) {
+	public int delete(User persistentInstance) {
 		log.debug("deleting User instance");
 		try {
 			getCurrentSession().delete(persistentInstance);
-			log.debug("delete successful");
+			return 1;
+			
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -82,6 +84,8 @@ public class UserDAO {
 	public List findByExample(User instance) {
 		log.debug("finding User instance by example");
 		try {
+			//System.out.println("user"+instance.getRestaurant().getRid());
+			//System.out.println("user"+instance.getUserrole().getUrid());
 			List results = getCurrentSession().createCriteria("entity.User")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
@@ -119,7 +123,7 @@ public class UserDAO {
 	public List findAll() {
 		log.debug("finding all User instances");
 		try {
-			String queryString = "from User";
+			String queryString = "from User u left join fetch u.userrole ur left join fetch u.restaurant r";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return queryObject.list();
 		} catch (RuntimeException re) {
@@ -128,12 +132,12 @@ public class UserDAO {
 		}
 	}
 
-	public User merge(User detachedInstance) {
+	public int  merge(User detachedInstance) {
 		log.debug("merging User instance");
 		try {
 			User result = (User) getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
-			return result;
+			return 1;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
 			throw re;

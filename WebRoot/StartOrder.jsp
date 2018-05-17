@@ -5,17 +5,33 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<title>茶部落</title>
+		<title>好食餐厅</title>
 		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<script src="js/jquery.min.js" type="text/javascript"></script>
 		<script src="js/amazeui.min.js" type="text/javascript"></script>
 		<link href="css/amazeui.min.css" type="text/css" rel="stylesheet" />
 		<link href="css/style.css" type="text/css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/bootstrap.min.css">  
+    	<script src="js/bootstrap.min.js"></script>
+    	<script type="text/javascript">
+    		$(window).scroll(function(){
+
+			if($(document).scrollTop()!=0){
+			sessionStorage.setItem("offsetTop", $(window).scrollTop());
+			} 
+});
+
+		window.onload = function()
+{
+			var _offset = sessionStorage.getItem("offsetTop");
+			$(document).scrollTop(offsetTop);
+};
+    	</script>
 	</head>
 	<body>
 		<header data-am-widget="header" class="am-header am-header-default sq-head ">
@@ -28,14 +44,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <div class="content-list" id="outer">
 	    	<div class="list-left" id="tab">
 	    		<s:iterator id="FoodCate" value="list">
-	    		<li><a href="###" onclick="showAtRight('showFood.action?cateId=<s:property value="#FoodCate.fcid"/>')"><i class="fa fa-users"></i> <s:property value="#FoodCate.fcname"/></a></li>
+	    		<li><a href="###" onclick="showAtRigh('showFood.action?cateId=<s:property value="#FoodCate.fcid"/>')"><i class="fa fa-users"></i> <s:property value="#FoodCate.fcname"/></a></li>
 	    		</s:iterator>
 	    		
 	    		
 	    	</div>
 	    	<div class="list-right" id="content">
-	    		
-	            <p>fdgfdvg</p>
+	<ul class="list-pro">
+    <s:iterator id="Food" value="FoodList">
+    	<li>
+			<a href="detail.html"><img src="images/1.png" class="list-pic" /></a>
+			<div class="shop-list-mid">
+				<div class="tit">
+					<a href="detail.html">
+		        		<s:property value="#Food.fname"/>
+				    </a>
+				</div>
+		        <div class="am-gallery-desc">￥<s:property value="#Food.fprice"/></div>
+		        </div>
+		        <div class="list-cart">
+		        	<button type="button" class="btn btn-primary" onclick="showAtRigh('AddtoCart.action?FID=<s:property value="#Food.fid"/>')"><i class="fa fa-users"></i> 加入购物车</button>
+		       </div>
+			    	</li>
+	</s:iterator>
+    </ul>
 	    	</div>
 	    </div>
 	    <!--底部-->
@@ -56,33 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 
 <script>
-//购物数量加减
-$(function(){
-		$('.increase').click(function(){
-			var self = $(this);
-			var current_num = parseInt(self.siblings('input').val());
-			current_num += 1;
-			if(current_num > 0){
-				self.siblings(".decrease").fadeIn();
-				self.siblings(".text_box").fadeIn();
-			}
-			self.siblings('input').val(current_num);
-			update_item(self.siblings('input').data('item-id'));
-		})		
-		$('.decrease').click(function(){
-			var self = $(this);
-			var current_num = parseInt(self.siblings('input').val());
-			if(current_num > 0){
-				current_num -= 1;
-                if(current_num < 1){
-	                self.fadeOut();
-					self.siblings(".text_box").fadeOut();
-                }
-				self.siblings('input').val(current_num);
-				update_item(self.siblings('input').data('item-id'));
-			}
-		})
-	})
     
 //删除提示信息   
     $(function() {
@@ -103,9 +108,8 @@ $(function(){
     });
 });
 
-        function showAtRight(url) {
+        function showAtRigh(url) {
 			var xmlHttp;
-			
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlHttp=new XMLHttpRequest();	//创建 XMLHttpRequest对象
@@ -129,7 +133,7 @@ $(function(){
 					}
 					//错误状态处理
 					else if (xmlHttp.status == 404){
-						alert("出错了☹   （错误代码：404 Not Found），……！"); 
+						//alert("出错了☹   （错误代码：404 Not Found），……！"); 
 						/* 对404的处理 */
 						return;
 					}

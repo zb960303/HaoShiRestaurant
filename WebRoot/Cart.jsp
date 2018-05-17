@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<title>茶部落</title>
+		<title>好食餐厅</title>
 		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link href="css/amazeui.min.css" type="text/css" rel="stylesheet" />
 		<link href="css/style.css" type="text/css" rel="stylesheet" />
@@ -28,26 +28,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<header data-am-widget="header" class="am-header am-header-default sq-head ">
 		   <div class="am-header-left am-header-nav">
-	          <a href="index.html" class="">继续点餐</a>
+	          <a href="startOrder" class="">继续点餐</a>
            </div>
-		   <div class="am-header-right am-header-nav">
-	          <button type="button" class="am-btn am-btn-warning" id="doc-confirm-toggle" style="background: none; border: 0; font-size: 24px;">
-                 <i class="am-header-icon am-icon-trash"></i>
-	          </button>
-            </div>
+		   
 	   </header>
 	   <div style="height: 49px;"></div>
 	    <ul class="eat-list">
 	    <s:iterator id="CartList" value="CartList">
 		    	<li>
 		    		<span class="name"><s:property value="#CartList.food.fname"/></span>
-		    		<em class="price">￥<s:property value="#CartList.fprice"/></em>
+		    		<em class="price">单价：￥<s:property value="#CartList.food.fprice"/></em>
+		    		<em class="">总价：￥<s:property value="#CartList.fprice"/></em>
 		    		
 		    		<div class="d-stock ">
-		                <a class="decrease">-</a>
+		                <a class="decrease" href="NumDecrease.action?NumFid=<s:property value="#CartList.food.fid"/>">-</a>
 		                <input id="num" readonly="" class="text_box" name="" type="text" value="<s:property value="#CartList.fnum"/>">
-		                <a class="increase">+</a>
+		                <a class="increase" href="NumIncrease.action?NumFid=<s:property value="#CartList.food.fid"/>">+</a>
+		                
 				    </div>
+				    
 		    	</li>
 	    	</s:iterator>
 	    	
@@ -73,17 +72,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <s:set name="sum" value="SumPrice"/>
 	    	<p>总价：<i><s:property value="#sum"/></i>元<p>
 	    	<p>请确认下单：</p>
-	    	<button class="paybtn" type="button" > 微信支付</button>
+	    	<form action="AddtoOrder" method="post">
+    			<button class="paybtn" type="submit" > 下单</button>
+    		</form>
+	    	
 	    </div>
 	    
 		 <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
-		  <div class="am-modal-dialog">
-		    <div class="am-modal-bd" style="height: 80px; line-height: 80px;">  您确定要清空饮品吗？</div>
-		    <div class="am-modal-footer">
-		      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-		      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-		    </div>
-		  </div>
+		  
 		</div>
 		
 		<script>
@@ -115,24 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				})
 			})
-		//删除提示信息   
-		    $(function() {
-		  $('#doc-modal-list').find('.am-icon-close').add('#doc-confirm-toggle').
-		    on('click', function() {
-		      $('#my-confirm').modal({
-		        relatedTarget: this,
-		        onConfirm: function(options) {
-		          var $link = $(this.relatedTarget).prev('a');
-		          var msg = $link.length ? '你要删除的饮品 为 ' + $link.data('id') :
-		            '确定了';
-		//        alert(msg);
-		        },
-		        onCancel: function() {
-		          alert('不删除');
-		        }
-		      });
-		    });
-		});
+		
 		
 		</script>
 	</body>

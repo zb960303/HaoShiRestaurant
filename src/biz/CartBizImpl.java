@@ -58,6 +58,12 @@ public class CartBizImpl implements CartBiz {
 		// TODO 自动生成的方法存根
 		return cartDao.SumPrice(id);
 	}
+
+	@Override
+	public void DeleteCart(int id) {
+		// TODO 自动生成的方法存根
+		cartDao.DeleteCart(id);
+	}
 	
 	
 }

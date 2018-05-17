@@ -73,6 +73,11 @@ public class CartDAO {
 		}
 	}
 
+	public void DeleteCart(int TID){
+		String hql="delete Cart u where u.table.tid="+ TID ;
+		 getCurrentSession().createQuery(hql).executeUpdate();
+		
+	}
 	public Cart findById(java.lang.Integer id) {
 		log.debug("getting Cart instance with id: " + id);
 		try {

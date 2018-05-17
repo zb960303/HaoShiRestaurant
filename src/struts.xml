@@ -12,10 +12,84 @@
 			<result name="ShowTID">WelCome.jsp</result>
 		</action>
 		<action name="AddtoCart" class="CartAction" method="AddtoCart">
-			<result name="AddSuccess">StartOrder.jsp</result>
+			<result name="AddtoCart">showFood.action</result>
 		</action>
 		<action name="ShowCart" class="CartAction" method="findAllCartByTID">
 			<result name="ShowCart">Cart.jsp</result>
+		</action>
+		<action name="AddtoOrder" class="CartAction" method="AddtoOrder">
+			<result name="ShowOrder">Order.jsp</result>
+		</action>
+		<action name="NumDecrease" class="CartAction" method="NumDecrease">
+			<result name="ShowCart">Cart.jsp</result>
+		</action>
+		<action name="NumIncrease" class="CartAction" method="NumIncrease">
+			<result name="ShowCart">Cart.jsp</result>
+		</action>
+		<action name="Pay" class="CartAction" method="Pay">
+			<result name="PaySuccess">StartOrder.jsp</result>
+		</action>
+		<action name="ToLogin" class="UserAction" method="findRole">
+			<result name="ToLogin">Login.jsp</result>
+		</action>
+		<action name="UserLogin" class="UserAction" method="UserLogin">
+			<result name="LoginSuccess">Management.jsp</result>
+			<result name="UserLoginSuccess">OrderList.jsp</result>
+			<result name="Login">Login.jsp</result>
+		</action>
+		<action name="UserList" class="UserAction" method="UserList">
+			<result name="UserList">UserList.jsp</result>
+		</action>
+		<action name="DeleteUser" class="UserAction" method="DeleteUser">
+			<result name="DeleteSuccess">UserList.jsp</result>
+		</action>
+		<action name="AddUser" class="UserAction" method="AddUser">
+			<result name="AddUser">UserList.jsp</result>
+		</action>
+		<action name="findRR" class="UserAction" method="findRR">
+			<result name="UserRR">UserAdd.jsp</result>
+		</action>
+		<action name="findByid" class="UserAction" method="findByid">
+			<result name="findByid">UserUpdate.jsp</result>
+		</action>
+		<action name="UpdateUser" class="UserAction" method="UpdateUser">
+			<result name="UpdateSuccess">UserList.jsp</result>
+		</action>
+		<action name="findAll" class="FoodAction" method="findAll">
+			<result name="findAll">FoodList.jsp</result>
+		</action>
+		<action name="DeleteFood" class="FoodAction" method="DeleteFood">
+			<result name="DeleteFood">FoodList.jsp</result>
+		</action>
+		<action name="AddFood" class="FoodAction" method="AddFood">
+			<result name="AddFood">FoodList.jsp</result>
+		</action>
+		<action name="ToAddFood" class="FoodAction" method="ToAddFood">
+			<result name="ToAddFood">FoodAdd.jsp</result>
+		</action>
+		<action name="FoodUpdate" class="FoodAction" method="FoodUpdate">
+			<result name="FoodUpdate">FoodList.jsp</result>
+		</action>
+		<action name="ToUpdateFood" class="FoodAction" method="ToUpdateFood">
+			<result name="ToUpdateFood">FoodUpdate.jsp</result>
+		</action>
+		<action name="AddFoodCate" class="FoodcateAction" method="AddFoodCate">
+			<result name="AddFoodCate">FoodCateList.jsp</result>
+		</action>
+		<action name="FoodCateList" class="FoodcateAction" method="FoodCateList">
+			<result name="FoodCateList">FoodCateList.jsp</result>
+		</action>
+		<action name="DeleteFoodCate" class="FoodcateAction" method="DeleteFoodCate">
+			<result name="DeleteFoodCate">FoodCateList.jsp</result>
+		</action>
+		<action name="OrderList" class="OrderAction" method="OrderList">
+			<result name="OrderList">OrderList.jsp</result>
+		</action>
+		<action name="IsBill" class="OrderAction" method="IsBill">
+			<result name="IsBill">OrderList.jsp</result>
+		</action>
+		<action name="NotBill" class="OrderAction" method="NotBill">
+			<result name="NotBill">OrderList.jsp</result>
 		</action>
 	</package>
 </struts>    
