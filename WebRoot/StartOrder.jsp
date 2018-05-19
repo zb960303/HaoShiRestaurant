@@ -36,10 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<header data-am-widget="header" class="am-header am-header-default sq-head ">
 		   <div class="am-header-right am-header-nav">
-	          <button type="button" class="am-btn am-btn-warning" id="doc-confirm-toggle" style="background: none; border: 0; font-size: 24px;">
-                 <i class="am-header-icon am-icon-trash"></i>
-	          </button>
-            </div>
+	          <a href="AddtoOrder" class="">支付订单</a>
+           </div>
 	   </header>
 	    <div class="content-list" id="outer">
 	    	<div class="list-left" id="tab">
@@ -50,26 +48,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		
 	    	</div>
 	    	<div class="list-right" id="content">
-	<ul class="list-pro">
+				<ul class="list-pro">
     <s:iterator id="Food" value="FoodList">
     	<li>
-			<a href="detail.html"><img src="images/1.png" class="list-pic" /></a>
+			<img src="img/<s:property value="#Food.img"/>" class="list-pic" />
 			<div class="shop-list-mid">
 				<div class="tit">
-					<a href="detail.html">
-		        		<s:property value="#Food.fname"/>
-				    </a>
+		        		<s:property value="#Food.fname"/>   
 				</div>
-		        <div class="am-gallery-desc">￥<s:property value="#Food.fprice"/></div>
+		        <div class="am-gallery-desc">
+		        	<s:property value="#Food.fdes"/>
+		        </div>
+		        <div class="am-gallery-desc">
+		       		 ￥<s:property value="#Food.fprice"/></div>
 		        </div>
 		        <div class="list-cart">
 		        	<button type="button" class="btn btn-primary" onclick="showAtRigh('AddtoCart.action?FID=<s:property value="#Food.fid"/>')"><i class="fa fa-users"></i> 加入购物车</button>
-		       </div>
+		        </div>
 			    	</li>
 	</s:iterator>
     </ul>
 	    	</div>
-	    </div>
+	  </div>
 	    <!--底部-->
  <div style="height: 100px;"></div>
  <div class="fix-bot">
@@ -77,15 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   	  <a href="ShowCart.action" class="list-jsk">选好了</a>
  </div>
  
- <div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
-  <div class="am-modal-dialog">
-    <div class="am-modal-bd" style="height: 80px; line-height: 80px;">  您确定要清空饮品吗？</div>
-    <div class="am-modal-footer">
-      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-    </div>
-  </div>
-</div>
+
 
 <script>
     

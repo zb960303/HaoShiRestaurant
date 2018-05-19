@@ -27,7 +27,7 @@
 			<result name="ShowCart">Cart.jsp</result>
 		</action>
 		<action name="Pay" class="CartAction" method="Pay">
-			<result name="PaySuccess">StartOrder.jsp</result>
+			<result name="PaySuccess" type="chain">startOrder</result>
 		</action>
 		<action name="ToLogin" class="UserAction" method="findRole">
 			<result name="ToLogin">Login.jsp</result>

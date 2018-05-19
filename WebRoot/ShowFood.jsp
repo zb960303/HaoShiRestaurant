@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
    <head>
 		<meta name="keywords" content="" />
-		<title>茶部落</title>
+		<title>好食餐厅</title>
 		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<script src="js/jquery.min.js" type="text/javascript"></script>
 		<script src="js/amazeui.min.js" type="text/javascript"></script>
@@ -39,14 +39,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class="list-pro">
     <s:iterator id="Food" value="Foodlist">
     	<li>
-			<a href="detail.html"><img src="images/1.png" class="list-pic" /></a>
+			<img src="img/<s:property value="#Food.img"/>" class="list-pic" />
 			<div class="shop-list-mid">
 				<div class="tit">
-					
-		        		<s:property value="#Food.fname"/>
-				    
+		        		<s:property value="#Food.fname"/>   
 				</div>
-		        <div class="am-gallery-desc">￥<s:property value="#Food.fprice"/></div>
+		        <div class="am-gallery-desc">
+		        	<s:property value="#Food.fdes"/>
+		        </div>
+		        <div class="am-gallery-desc">
+		       		 ￥<s:property value="#Food.fprice"/></div>
 		        </div>
 		        <div class="list-cart">
 		        	<button type="button" class="btn btn-primary" onclick="showAtRigh('AddtoCart.action?FID=<s:property value="#Food.fid"/>')"><i class="fa fa-users"></i> 加入购物车</button>

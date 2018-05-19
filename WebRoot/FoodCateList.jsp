@@ -22,9 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>类别管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 角色管理 </nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 类别管理 </nav>
 <div class="pd-20">
-	<div class="cl pd-5 bg-1 bk-gray"> <span class="l">  <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','FoodCateAdd.jsp','800')"><i class="Hui-iconfont">&#xe600;</i> 添加角色</a> </span>  </div>
+	<div class="cl pd-5 bg-1 bk-gray"> <span class="l">  <a class="btn btn-primary radius" href="javascript:;" onclick="admin_role_add('添加角色','FoodCateAdd.jsp','800')"><i class="Hui-iconfont">&#xe600;</i> 添加类别</a> </span>  </div>
 	<table class="table table-border table-bordered table-hover table-bg">
 		<thead>
 			<tr>
